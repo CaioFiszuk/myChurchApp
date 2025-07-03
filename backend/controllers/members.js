@@ -18,7 +18,7 @@ module.exports.createMember = async (req, res) => {
       const data = await Member.create({ memberName, birthDate, church });
       return res.status(201).send({data});
     }catch(err){
-      res.status(500).send({ message: "It was not possible for create a member " + err })
+      res.status(500).send({ message: "It was not possible to create a member " + err })
     }
 }
 

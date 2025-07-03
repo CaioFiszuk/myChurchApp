@@ -22,7 +22,7 @@ module.exports.createChurch = async (req, res) => {
      const data = await Church.create({ churchName, image, logo, pastor });
      return res.status(201).send({ data });
   }catch(err){
-     res.status(500).send({ message: "It was not possible for create a church" + err })
+     res.status(500).send({ message: "It was not possible to create a church" + err })
   }
 
 }
@@ -33,6 +33,8 @@ module.exports.updateChurch = async (req, res) => {
     {},
     {
       churchName: req.body.churchName,
+      image: req.body.image,
+      logo: req.body.logo,
       pastor: req.body.pastor,
     },
     { new: true }

@@ -15,7 +15,6 @@ const announceSchema = new mongoose.Schema({
   },
   art: {
     type: String,
-    required: true,
     default: ''
   },
   church: { 
