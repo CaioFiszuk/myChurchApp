@@ -5,7 +5,6 @@ const cors = require('cors');
 const churchesRoutes = require('./routes/churches');
 const membersRoutes = require('./routes/members');
 const announcesRoutes = require('./routes/announces');
-const sermonsRoutes = require('./routes/sermon');
 const usersRoutes = require('./routes/users');
 
 app.use(express.json());
@@ -21,7 +20,6 @@ const { PORT = 3000 } = process.env;
 app.use('/church', churchesRoutes);
 app.use('/members', membersRoutes);
 app.use('/announces', announcesRoutes);
-app.use('/sermons', sermonsRoutes);
 app.use('/users', usersRoutes);
 
 app.use((err, req, res, next) => {

@@ -8,6 +8,11 @@ const memberSchema = new mongoose.Schema({
   birthDate: {
     type: Date
   },
+  church: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'church', 
+    required: true 
+  },
   createdAt: {
     type: Date,
     default: Date.now,

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const churchSchema = new mongoose.Schema({
   churchName: {
     type: String,
-    default: 'church'
+    default: 'church',
   },
   image: {
     type: String,

@@ -16,6 +16,12 @@ const announceSchema = new mongoose.Schema({
   art: {
     type: String,
     required: true,
+    default: ''
+  },
+  church: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'church',
+    required: true 
   },
   createdAt: {
     type: Date,
