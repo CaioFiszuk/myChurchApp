@@ -17,7 +17,6 @@ function Main() {
      await api.getAnnounces()
     .then((data)=>{
      setAnnounces(data);
-     console.log(data)
     })
     .catch((error) => console.error("Erro ao buscar os anúncios:", error));
   }
@@ -29,22 +28,26 @@ function Main() {
 
   return (
     <main>
-        {
-          announces.map((announce)=>(
-            <div>
-              <h2>{announce.title}</h2>
-              <p>{announce.content}</p>
-            </div>
-          ))
-        }
-
+        <div className="announces">
           {
-          members.map((member)=>(
-            <div>
-              <h3>{member.memberName}</h3>
-            </div>
-          ))
-        }
+            announces.map((announce)=>(
+              <div className="announces-box">
+                <img src={announce.art} className="announces-box__art" />
+                <h2 className="announces-box__title" >{announce.title}</h2>
+                <p className="announces-box__content" >{announce.content}</p>
+              </div>
+            ))
+          }
+        </div>
+
+          <h3 className="birthdays">Aniversariantes do mês</h3>
+          <ul className="members-list">
+            {
+            members.map((member)=>(
+                <li>{member.memberName} - <span>{new Date(member.birthDate).toLocaleDateString('pt-BR')}</span></li>
+            ))
+            }
+          </ul>
     </main>
   )
 }
