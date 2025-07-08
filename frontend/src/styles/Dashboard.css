@@ -1,0 +1,26 @@
+.dashboard__church-box {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.dashboard__church-box__logo, .dashboard__church-box__image {
+    width: 100px;
+    height: 100px;
+}
+
+.dashboard__church-box__edit-button {
+    border: none;
+    border-radius: 50px;
+    background-color: green;
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.dashboard__church-box__edit-button:hover {
+    background-color: rgb(0, 75, 0);
+}

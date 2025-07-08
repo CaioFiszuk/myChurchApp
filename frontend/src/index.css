@@ -1,6 +1,9 @@
 @import url('./styles/Header.css');
 @import url('./styles/AnnouncesBox.css');
 @import url('./styles/MembersList.css');
+@import url('./styles/Dashboard.css');
+@import url('./styles/Popup.css');
+@import url('./styles/Form.css');
 
 *{
     margin: 0;
