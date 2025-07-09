@@ -7,6 +7,8 @@ import  Dashboard  from '../components/Dashboard';
 
 function App() {
     const [church, setChurch] = useState([]);
+    const [announces, setAnnounces] = useState([]);
+    const [members, setMembers] = useState([]);
 
     const getChurch = async ()=>{
      await api.getChurch()
@@ -16,8 +18,26 @@ function App() {
     .catch((error) => console.error("Erro ao buscar a igreja:", error));
   }
 
+  const getAnnounces = async ()=>{
+     await api.getAnnounces()
+    .then((data)=>{
+     setAnnounces(data);
+    })
+    .catch((error) => console.error("Erro ao buscar os anúncios:", error));
+  }
+
+    const getMembers = async ()=>{
+     await api.getMembers()
+    .then((data)=>{
+     setMembers(data);
+    })
+    .catch((error) => console.error("Erro ao buscar os membros:", error));
+  }
+
   useEffect(()=>{
     getChurch();
+    getAnnounces();
+    getMembers();
   }, []);
 
   return (
@@ -28,14 +48,20 @@ function App() {
           element={
             <>
               <Header church={church}/>
-              <Main />
+              <Main announces={announces} members={members}/>
             </>
           }
         />
 
        <Route 
           path='/admin'
-          element={<Dashboard church={church} setChurch={setChurch}/>}
+          element={
+            <Dashboard 
+            church={church} 
+            setChurch={setChurch}
+            announces={announces}
+            members={members}
+          />}
         />
 
       </Routes>

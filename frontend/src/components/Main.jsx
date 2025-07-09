@@ -1,30 +1,4 @@
-import { useEffect, useState } from "react";
-import { api } from '../utils/api';
-
-function Main() {
-  const [members, setMembers] = useState([]);
-  const [announces, setAnnounces] = useState([]);
-
-    const getMembers = async ()=>{
-     await api.getMembers()
-    .then((data)=>{
-     setMembers(data);
-    })
-    .catch((error) => console.error("Erro ao buscar os membros:", error));
-  }
-
-    const getAnnounces = async ()=>{
-     await api.getAnnounces()
-    .then((data)=>{
-     setAnnounces(data);
-    })
-    .catch((error) => console.error("Erro ao buscar os anúncios:", error));
-  }
-
-  useEffect(()=>{
-    getMembers();
-    getAnnounces();
-  }, []);
+function Main({announces, members}) {
 
   return (
     <main>
@@ -34,7 +8,7 @@ function Main() {
               <div className="announces-box">
                 <img src={announce.art} className="announces-box__art" />
                 <h2 className="announces-box__title" >{announce.title}</h2>
-                <p className="announces-box__content" >{announce.content}</p>
+                <p className="announces-box__content" >{new Date(announce.announceDate).toLocaleDateString('pt-BR')}</p>
               </div>
             ))
           }

@@ -1,4 +1,10 @@
-.dashboard__church-box {
+.dashboard__buttons-box {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px 0;
+}
+
+.dashboard__box {
     border: 1px solid black;
     display: flex;
     justify-content: space-evenly;
@@ -6,21 +12,51 @@
     margin-top: 50px;
 }
 
-.dashboard__church-box__logo, .dashboard__church-box__image {
+.dashboard__box__logo, .dashboard__box__image {
     width: 100px;
     height: 100px;
 }
 
-.dashboard__church-box__edit-button {
+.dashboard__button {
     border: none;
     border-radius: 50px;
-    background-color: green;
     color: white;
     padding: 20px;
+    margin: 0 10px;
     font-size: 20px;
     cursor: pointer;
 }
 
-.dashboard__church-box__edit-button:hover {
-    background-color: rgb(0, 75, 0);
+.edit-button {
+    background-color: green;
+}
+
+.create-button {
+  background-color: royalblue;
+}
+
+.delete-button {
+    background-color: red;
+}
+
+.dashboard__button:hover {
+    background-color: rgba(133, 133, 133, 0.847);
+}
+
+.dashboard__table {
+    margin: 30px auto;
+}
+
+.dashboard__table__header {
+    padding-bottom: 10px;
+}
+
+.dashboard__table-cell {
+    border: 1px solid black;
+    padding: 0px 20px;
+}
+
+.dashboard__table-cell-image {
+   width: 200px;
+   height: 150px;
 }

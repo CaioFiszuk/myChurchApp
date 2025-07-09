@@ -2,7 +2,7 @@ import { useState } from "react";
 import { api } from '../utils/api';
 import PopUp from '../components/Popup';
 
-function Dashboard({church, setChurch}) {
+function Dashboard({church, setChurch, announces, members}) {
   const [updateChurchModal, setUpdateChurchModal] = useState(false);
   const [updateChurchFormData, setUpdateChurchFormData] = useState({
     churchName: '',
@@ -48,13 +48,66 @@ function Dashboard({church, setChurch}) {
 
   return (
     <div>
-       <div className="dashboard__church-box">
-         <h2>{church.churchName}</h2>
-         <img src={church.logo} className="dashboard__church-box__logo"/>
-         <img src={church.image} className="dashboard__church-box__image"/>
-         <p>{church.pastor}</p>
-         <button className="dashboard__church-box__edit-button" onClick={()=>openUpdateChurchModal(church)}>Editar</button>
+       <div className="dashboard__buttons-box">
+          <button className="dashboard__button create-button">Criar anúncio</button>
+          <button className="dashboard__button create-button">Adicionar membro</button>
        </div>
+
+       <div className="dashboard__box">
+         <h2>{church.churchName}</h2>
+         <img src={church.logo} className="dashboard__box__logo"/>
+         <img src={church.image} className="dashboard__box__image"/>
+         <p>{church.pastor}</p>
+         <button className="dashboard__button edit-button" onClick={()=>openUpdateChurchModal(church)}>Editar</button>
+       </div>
+
+       <table className="dashboard__table">
+           <thead>
+            <tr className="dashboard__table__header">
+              <th>Dia</th>
+              <th>Título</th>
+              <th>Arte</th>
+              <th> </th>
+            </tr>
+           </thead>
+           <tbody>
+            {
+              announces.map((announce)=>(
+                <tr key={announce._id}>
+                  <td className="dashboard__table-cell">{new Date(announce.announceDate).toLocaleDateString('pt-BR')}</td>
+                  <td className="dashboard__table-cell">{announce.title}</td>
+                  <td className="dashboard__table-cell">
+                    <img src={announce.art} className="dashboard__table-cell-image"/>
+                  </td>
+                  <td><button className="dashboard__button edit-button">Editar</button></td>
+                  <td><button className="dashboard__button delete-button">Deletar</button></td>
+                </tr>
+              ))
+            }
+           </tbody>
+       </table>
+
+       <table className="dashboard__table">
+           <thead>
+            <tr className="dashboard__table__header">
+              <th>Nome</th>
+              <th>Data de aniversário</th>
+              <th> </th>
+            </tr>
+           </thead>
+           <tbody>
+            {
+              members.map((member)=>(
+                <tr key={member._id}>
+                  <td className="dashboard__table-cell">{member.memberName}</td>
+                  <td className="dashboard__table-cell">{new Date(member.birthDate).toLocaleDateString('pt-BR')}</td>
+                  <td><button className="dashboard__button edit-button">Editar</button></td>
+                  <td><button className="dashboard__button delete-button">Deletar</button></td>
+                </tr>
+              ))
+            }
+           </tbody>
+       </table>
 
        <PopUp isOpen={updateChurchModal} onClose={closeUpdateChurchModal}>
           <form className='form' onSubmit={handleUpdateChurch}>
