@@ -60,7 +60,9 @@ function App() {
             church={church} 
             setChurch={setChurch}
             announces={announces}
+            setAnnounces={setAnnounces}
             members={members}
+            setMembers={setMembers}
           />}
         />
 

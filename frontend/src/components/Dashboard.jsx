@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { api } from '../utils/api';
 import PopUp from '../components/Popup';
+import Form from "./Form";
 
-function Dashboard({church, setChurch, announces, members}) {
+function Dashboard({church, setChurch, announces, setAnnounces, members, setMembers}) {
+  const [createMemberModal, setCreateMemberModal] = useState(false);
+  const [createAnnounceModal, setCreateAnnounceModal] = useState(false);
   const [updateChurchModal, setUpdateChurchModal] = useState(false);
   const [updateChurchFormData, setUpdateChurchFormData] = useState({
     churchName: '',
@@ -23,6 +26,22 @@ function Dashboard({church, setChurch, announces, members}) {
 
   const closeUpdateChurchModal = () => {
       setUpdateChurchModal(false);
+  }
+
+  const openCreateMemberModal = () => {
+    setCreateMemberModal(true);
+  }
+
+  const closeCreateMemberModal = () => {
+    setCreateMemberModal(false);
+  }
+
+  const openCreateAnnounceModal = () => {
+    setCreateAnnounceModal(true);
+  }
+
+  const closeCreateAnnounceModal = () => {
+    setCreateAnnounceModal(false);
   }
 
   const handleUpdateChurchFormChange = (e) => {
@@ -46,11 +65,57 @@ function Dashboard({church, setChurch, announces, members}) {
     }
   }
 
+  const handleCreateMember = async (data) => {
+    try {
+    const payload = {
+      memberName: data.memberName,
+      birthDate: data.birthDate,
+      church: church._id 
+    };
+
+    const response = await api.createMember(payload);
+
+    setMembers((prev) => [...prev, response.data]);
+
+    closeCreateMemberModal();
+  } catch (error) {
+    console.error("Erro ao criar membro:", error);
+  }
+  };
+
+  const handleCreateAnnounce = async (data) => {
+    try {
+      const payload = {
+        title: data.title,
+        announceDate: data.announceDate,
+        art: data.art,
+        church: church._id 
+      }
+
+      const response = await api.createAnnounce(payload);
+      setAnnounces((prev)=>[...prev, response.data]);
+
+      closeCreateAnnounceModal();
+    } catch(error) {
+       console.error("Erro ao criar um anúncio:", error);
+    }
+  }
+
   return (
     <div>
        <div className="dashboard__buttons-box">
-          <button className="dashboard__button create-button">Criar anúncio</button>
-          <button className="dashboard__button create-button">Adicionar membro</button>
+          <button 
+            className="dashboard__button create-button"
+            onClick={openCreateAnnounceModal}
+          >
+            Criar anúncio
+          </button>
+          <button 
+            className="dashboard__button create-button"
+            onClick={openCreateMemberModal}
+          >
+            Adicionar membro
+          </button>
        </div>
 
        <div className="dashboard__box">
@@ -110,8 +175,11 @@ function Dashboard({church, setChurch, announces, members}) {
        </table>
 
        <PopUp isOpen={updateChurchModal} onClose={closeUpdateChurchModal}>
-          <form className='form' onSubmit={handleUpdateChurch}>
-          <legend className='form__title'>Atualizar Igreja</legend>
+        <Form 
+          submission={handleUpdateChurch} 
+          formLegend={'Atualizar Igreja'}
+          buttonName={'Editar'}
+        >
           <input 
             type="text" 
             name="churchName" 
@@ -144,14 +212,48 @@ function Dashboard({church, setChurch, announces, members}) {
             value={updateChurchFormData.pastor}
             onChange={handleUpdateChurchFormChange}
           />
+        </Form>
+       </PopUp>
 
-          <button 
-            type='submit' 
-            className='form__button'
-          >
-            Editar
-          </button>
-        </form>
+       <PopUp isOpen={createMemberModal} onClose={closeCreateMemberModal}> 
+         <Form submission={handleCreateMember} formLegend={'Adicionar Membro'} buttonName={'Adicionar'}>
+          <input 
+            type="text" 
+            name="memberName" 
+            placeholder='Nome do Membro' 
+            className='form__input'
+          />
+          <input 
+            type="date" 
+            name="birthDate" 
+            placeholder='Data de aniversário' 
+            className='form__input'
+          />
+         </Form>
+       </PopUp>
+
+        <PopUp isOpen={createAnnounceModal} onClose={closeCreateAnnounceModal}> 
+         <Form submission={handleCreateAnnounce} formLegend={'Adicionar Anúncio'} buttonName={'Adicionar'}>
+          <input 
+            type="text" 
+            name="title" 
+            placeholder='Título do anúncio' 
+            className='form__input'
+          />
+          <input 
+            type="date" 
+            name="announceDate" 
+            placeholder='Data do evento' 
+            className='form__input'
+          />
+
+          <input 
+            type="text" 
+            name="art" 
+            placeholder='Arte' 
+            className='form__input'
+          />
+         </Form>
        </PopUp>
     </div>
   )

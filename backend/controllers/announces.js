@@ -11,11 +11,11 @@ module.exports.getAnnounces = async (req, res) => {
 
 module.exports.createAnnounce = async (req, res) => {
     try{
-      const { announceDate, title, content, art, church } = req.body;
-      if(!announceDate || !title|| !content || !church){
+      const { announceDate, title, art, church } = req.body;
+      if(!announceDate || !title || !art || !church){
         return res.status(400).send({ message: "Todos os campos precisam ser preenchidos" });
       }
-      const data = await Announce.create({ announceDate, title, content, art, church });
+      const data = await Announce.create({ announceDate, title, art, church });
       return res.status(201).send({data});
     }catch(err){
       res.status(500).send({ message: "It was not possible to create an announce " + err })

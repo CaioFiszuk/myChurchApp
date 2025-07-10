@@ -9,13 +9,8 @@ const announceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  content: {
-    type: String,
-    required: true,
-  },
   art: {
     type: String,
-    default: ''
   },
   church: { 
     type: mongoose.Schema.Types.ObjectId, 

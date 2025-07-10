@@ -46,6 +46,25 @@ class Api {
         });
     }
 
+    createMember(memberData) {
+      const { memberName, birthDate } = memberData;
+      if (!memberName || !birthDate) {
+        return Promise.reject("Todos os campos são obrigatórios.");
+      }
+
+       return axios.post(`${this._baseURL}/members`, memberData)
+       .then((res) => {
+        return res.data;
+      })
+          .catch((error) => {
+
+      const errorMessage = error.response 
+        ? `Error: ${error.response.status} - ${error.response.data.message || error.message}` 
+        : `Network error: ${error.message}`;
+      return Promise.reject(errorMessage);
+    });
+    }
+
     getAnnounces() {
         return axios.get(`${this._baseURL}/announces`)
         .then((res) => {
@@ -55,6 +74,25 @@ class Api {
          return Promise.reject(`Error: ${error.response ? error.response.status : error.message}`);
         });
     }  
+
+    createAnnounce(announceData) {
+      const { title, announceDate, art } = announceData;
+      if (!title || !announceDate || !art) {
+        return Promise.reject("Todos os campos são obrigatórios.");
+      }
+
+       return axios.post(`${this._baseURL}/announces`, announceData)
+       .then((res) => {
+        return res.data;
+      })
+      .catch((error) => {
+
+      const errorMessage = error.response 
+        ? `Error: ${error.response.status} - ${error.response.data.message || error.message}` 
+        : `Network error: ${error.message}`;
+      return Promise.reject(errorMessage);
+    });
+    }
 
   }
 
